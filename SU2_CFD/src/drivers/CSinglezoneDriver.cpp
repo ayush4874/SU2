@@ -29,6 +29,7 @@
 #include "../../include/definition_structure.hpp"
 #include "../../include/output/COutput.hpp"
 #include "../../include/iteration/CIteration.hpp"
+#include "../../../subprojects/MLPCpp/include/CLookUp_ANN.hpp"
 
 CSinglezoneDriver::CSinglezoneDriver(char* confFile,
                        unsigned short val_nZone,
@@ -311,4 +312,8 @@ bool CSinglezoneDriver::Monitor(unsigned long TimeIter){
 
 bool CSinglezoneDriver::GetTimeConvergence() const{
   return output_container[ZONE_0]->GetCauchyCorrectedTimeConvergence(config_container[ZONE_0]);
+}
+
+MLPToolbox::CLookUp_ANN* CSinglezoneDriver::GetNeuralNetwork() {
+  return nullptr;
 }

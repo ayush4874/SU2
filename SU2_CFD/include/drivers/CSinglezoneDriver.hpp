@@ -29,6 +29,8 @@
 #pragma once
 #include "CDriver.hpp"
 
+namespace MLPToolbox { class CLookUp_ANN; }
+
 /*!
  * \class CSinglezoneDriver
  * \ingroup Drivers
@@ -109,5 +111,11 @@ public:
    * \param ExtIter
    */
   bool Monitor(unsigned long TimeIter) override;
+
+  /*!
+   * \brief [GSoC Prototype] Interface to expose the internal neural network to Python.
+   * \return Pointer to the ANN object (or nullptr if not initialized).
+   */
+  virtual MLPToolbox::CLookUp_ANN* GetNeuralNetwork();
 
 };

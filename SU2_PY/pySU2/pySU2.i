@@ -44,6 +44,7 @@ threads="1"
 #include "../../SU2_CFD/include/drivers/CMultizoneDriver.hpp"
 #include "../../SU2_CFD/include/drivers/CSinglezoneDriver.hpp"
 #include "../../SU2_DEF/include/drivers/CDeformationDriver.hpp"
+#include "../../subprojects/MLPCpp/include/CLookUp_ANN.hpp"
 %}
 
 // ----------- USED MODULES ------------
@@ -92,6 +93,17 @@ const unsigned int MESH_1 = 1; /*!< \brief Definition of the finest grid level. 
 const unsigned int ZONE_0 = 0; /*!< \brief Definition of the first grid domain. */
 const unsigned int ZONE_1 = 1; /*!< \brief Definition of the first grid domain. */
 
+// [GSoC 2026] Manual wrapper for MLPToolbox to expose SetWeightsBiases
+// Defined HERE (before drivers) so SWIG recognizes the return types.
+namespace MLPToolbox {
+  class CLookUp_ANN {
+  private:
+    CLookUp_ANN(); 
+  public:
+    void SetWeightsBiases(size_t network_idx, const std::vector<double>& flat_weights);
+  };
+}
+
 %include "../../Common/include/containers/CPyWrapperMatrixView.hpp"
 %include "../../SU2_CFD/include/drivers/CDriverBase.hpp"
 %include "../../SU2_CFD/include/drivers/CDriver.hpp"
@@ -99,3 +111,5 @@ const unsigned int ZONE_1 = 1; /*!< \brief Definition of the first grid domain. 
 %include "../../SU2_CFD/include/drivers/CMultizoneDriver.hpp"
 %include "../../SU2_CFD/include/drivers/CDiscAdjSinglezoneDriver.hpp"
 %include "../../SU2_DEF/include/drivers/CDeformationDriver.hpp"
+
+
